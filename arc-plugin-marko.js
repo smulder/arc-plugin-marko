@@ -15,7 +15,7 @@ async function prebuildPage(page, config, extend) {
     );
   }
 
-  await fs.remove(config.cacheDir);
+  //await fs.remove(config.cacheDir);
 
   return markoPrebuild.run({
     pages: [page],
