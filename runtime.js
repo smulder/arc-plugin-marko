@@ -1,6 +1,6 @@
 require("marko/compiler").configure({ writeToDisk: false });
 
-const arc = require("@architect/functions");
+//const arc = require("@architect/functions");
 const getDefaultBuildConfig = require("./getDefaultBuildConfig");
 
 function route(template, data, onDone, onError) {
@@ -25,7 +25,7 @@ function route(template, data, onDone, onError) {
 
 let lassoConfigured = false;
 
-exports.run = function({ template, buildConfig, data, onDone, onError }) {
+exports.run = function({ template, buildConfig, data, onDone, onError, req, res }) {
   if (!lassoConfigured) {
     const config = Object.assign(
       {},
@@ -38,5 +38,16 @@ exports.run = function({ template, buildConfig, data, onDone, onError }) {
     require("lasso").configure(config);
     lassoConfigured = true;
   }
-  return arc.html.get(route(template, data, onDone, onError));
+  //var outRoute = route(template, data, onDone, onError);
+  //console.log('outRoute', outRoute);
+  function ExpRes({html, status}){
+	  //console.log('res',res);
+
+	  console.log('TRYING TO SEND NOW');
+	  res.send(html);
+
+	  //console.log('html', html);
+  }
+  route(template, data, onDone, onError)(req,ExpRes);
+  //return arc.html.get(route(template, data, onDone, onError));
 };
