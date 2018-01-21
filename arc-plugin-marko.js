@@ -42,7 +42,7 @@ async function build(config) {
     '"pages" and "config" are required properties to use arc-plugin-marko'
   );
 
-  let { pages, config: buildConfig, bucket } = pluginConfig;
+  let { pages, config: buildConfig, bucket, store } = pluginConfig;
 
   ok(pages, '"pages" is a required property to use arc-plugin-marko');
 
@@ -68,15 +68,22 @@ async function build(config) {
     }
   }
 
-  if (bucket && !findPlugin("lasso-s3-writer", buildConfig.plugins)) {
-    buildConfig.plugins.push({
-      plugin: "lasso-s3-writer",
-      config: {
-        bucket,
-        logger: console.log
-      }
-    });
+  if(bucket){
+	  if(!store || store == 'AWS'){
+		  if (!findPlugin("lasso-s3-writer", buildConfig.plugins)) {
+		    buildConfig.plugins.push({
+		      plugin: "lasso-s3-writer",
+		      config: {
+		        bucket,
+		        logger: console.log
+		      }
+		    });
+		  }
+	  }else if(store == 'GCS'){
+		  // Need to implement a hook to send compiled templates to Google Cloud Storage Bucket
+	  }
   }
+
 
   const fileGlob = path.resolve(cwd, "./src/**/*.marko");
 

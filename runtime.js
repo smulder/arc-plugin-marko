@@ -1,6 +1,6 @@
 require("marko/compiler").configure({ writeToDisk: false });
 
-//const arc = require("@architect/functions");
+const arc = require("@architect/functions");
 const getDefaultBuildConfig = require("./getDefaultBuildConfig");
 
 function route(template, data, onDone, onError) {
@@ -25,7 +25,7 @@ function route(template, data, onDone, onError) {
 
 let lassoConfigured = false;
 
-exports.run = function({ template, buildConfig, data, onDone, onError, req, res }) {
+exports.run = function({ template, buildConfig, store, data, onDone, onError, req, res }) {
   if (!lassoConfigured) {
     const config = Object.assign(
       {},
@@ -38,16 +38,16 @@ exports.run = function({ template, buildConfig, data, onDone, onError, req, res 
     require("lasso").configure(config);
     lassoConfigured = true;
   }
-  //var outRoute = route(template, data, onDone, onError);
-  //console.log('outRoute', outRoute);
+
   function ExpRes({html, status}){
-	  //console.log('res',res);
-
-	  console.log('TRYING TO SEND NOW');
 	  res.send(html);
-
-	  //console.log('html', html);
   }
-  route(template, data, onDone, onError)(req,ExpRes);
-  //return arc.html.get(route(template, data, onDone, onError));
+
+  if(!store || store == 'AWS'){
+	  return arc.html.get(route(template, data, onDone, onError));
+  }else if(store == 'GCS'){
+	  // Directly send the response for now via (ExpRes).
+	  // Future implementation would point to the Google Cloud Storage Route directly.
+	  route(template, data, onDone, onError)(req,ExpRes);
+  }
 };
