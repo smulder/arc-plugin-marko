@@ -42,7 +42,7 @@ async function build(config) {
     '"pages" and "config" are required properties to use arc-plugin-marko'
   );
 
-  let { pages, config: buildConfig, bucket, store } = pluginConfig;
+  let { pages, config: buildConfig, bucket, store, staticUrl } = pluginConfig;
 
   ok(pages, '"pages" is a required property to use arc-plugin-marko');
 
