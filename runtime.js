@@ -1,6 +1,8 @@
 require("marko/compiler").configure({ writeToDisk: false });
 
-const arc = require("@architect/functions");
+// Lazily-loaded if using arc
+let arc;
+
 const getDefaultBuildConfig = require("./getDefaultBuildConfig");
 
 function route(template, data, onDone, onError) {
@@ -44,6 +46,7 @@ exports.run = function({ template, buildConfig, store, data, onDone, onError, re
   }
 
   if(!store || store == 'AWS'){
+	  if (!arc) arc = require("@arc/functions");
 	  return arc.html.get(route(template, data, onDone, onError));
   }else if(store == 'GCS'){
 	  // Directly send the response for now via (ExpRes).
