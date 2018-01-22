@@ -80,6 +80,16 @@ async function build(config) {
 		    });
 		  }
 	  }else if(store == 'GCS'){
+		  if (!findPlugin("lasso-gcs-writer", buildConfig.plugins)) {
+		    buildConfig.plugins.push({
+		      plugin: "lasso-gcs-writer",
+		      config: {
+		        bucket,
+			   staticUrl,
+		        logger: console.log
+		      }
+		    });
+		  }
 		  // Need to implement a hook to send compiled templates to Google Cloud Storage Bucket
 	  }
   }
