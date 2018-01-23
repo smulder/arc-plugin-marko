@@ -42,7 +42,7 @@ async function build(config) {
     '"pages" and "config" are required properties to use arc-plugin-marko'
   );
 
-  let { pages, config: buildConfig, bucket, store, staticUrl } = pluginConfig;
+  let { pages, config: buildConfig, bucket, store, staticUrl, bucketDir } = pluginConfig;
 
   ok(pages, '"pages" is a required property to use arc-plugin-marko');
 
@@ -85,6 +85,7 @@ async function build(config) {
 		      plugin: "lasso-gcs-writer",
 		      config: {
 		        bucket,
+			   bucketDir,
 			   staticUrl,
 		        logger: console.log
 		      }
