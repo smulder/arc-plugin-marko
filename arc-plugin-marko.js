@@ -93,7 +93,6 @@ async function build(config) {
 		      }
 		    });
 		  }
-		  // Need to implement a hook to send compiled templates to Google Cloud Storage Bucket
 	  }
   }
 
