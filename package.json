@@ -34,6 +34,7 @@
     "prettier": "^1.8.2"
   },
   "dependencies": {
+	"@architect/functions": "^1.6.3",
     "@lasso/marko-taglib": "github:lasso-js/lasso-marko-taglib#4cf68ca85f38b15a535d4845aec0c1c5f3c7936e",
     "@marko/compile": "^1.0.3",
     "@marko/prebuild": "0.0.2",

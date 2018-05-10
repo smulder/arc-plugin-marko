@@ -36,7 +36,7 @@ exports.run = function({ template, buildConfig, store, data, onDone, onError, re
         loadPrebuild: true
       }
     );
-
+    console.log('config for lasso: '. config);
     require("lasso").configure(config);
     lassoConfigured = true;
   }
