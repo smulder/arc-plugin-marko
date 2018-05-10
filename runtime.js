@@ -28,6 +28,7 @@ function route(template, data, onDone, onError) {
 let lassoConfigured = false;
 
 exports.run = function({ template, buildConfig, store, data, onDone, onError, req, res }) {
+	res.startTime('Bucket Routing');
   if (!lassoConfigured) {
     const config = Object.assign(
       {},
@@ -42,6 +43,7 @@ exports.run = function({ template, buildConfig, store, data, onDone, onError, re
   }
 
   function ExpRes({html, status}){
+	  res.endTime('Bucket Routing');
 	  res.send(html);
   }
 
