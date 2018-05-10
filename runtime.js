@@ -28,6 +28,8 @@ function route(template, data, onDone, onError) {
 let lassoConfigured = false;
 
 exports.run = function({ template, buildConfig, store, data, onDone, onError, req, res }) {
+	console.log('In Run For runtime > arc-plugin-marko');
+	console.log('lassoConfigured: ', lassoConfigured);
   if (!lassoConfigured) {
     const config = Object.assign(
       {},
