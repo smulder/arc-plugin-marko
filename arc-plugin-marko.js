@@ -102,6 +102,7 @@ async function build(config) {
   await markoCompile.run({
     dir: cwd,
     browser: true,
+    server: true,
     files: fileGlob
   });
 
