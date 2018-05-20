@@ -6,7 +6,7 @@ let arc;
 const getDefaultBuildConfig = require("./getDefaultBuildConfig");
 
 async function route(template, data, onDone, onError) {
-   return await function(req, res) {
+  return function(req, res) {
     let renderPromise = template // eslint-disable-line no-unused-vars
       .render(data)
       .then(out => res({ html: out.getOutput() }));
