@@ -5,8 +5,8 @@ let arc;
 
 const getDefaultBuildConfig = require("./getDefaultBuildConfig");
 
-async function route(template, data, onDone, onError) {
-  return function(req, res) {
+function route(template, data, onDone, onError) {
+  return async function(req, res) {
     let renderPromise = template // eslint-disable-line no-unused-vars
       .render(data)
       .then(out => res({ html: out.getOutput() }));
@@ -59,6 +59,6 @@ exports.run = function({ template, buildConfig, store, data, onDone, onError, re
   }else if(store == 'GCS'){
 	  // Directly send the response for now via (ExpRes).
 	  // Future implementation would point to the Google Cloud Storage Route directly.
-	  route(template, data, onDone, onError)(req,ExpRes);
+	  return route(template, data, onDone, onError)(req,ExpRes);
   }
 };
