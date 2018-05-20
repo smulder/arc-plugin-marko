@@ -6,7 +6,7 @@ let arc;
 const getDefaultBuildConfig = require("./getDefaultBuildConfig");
 
 async function route(template, data, onDone, onError) {
-  async function finalRoute(req, res) {
+   return await function(req, res) {
     let renderPromise = template // eslint-disable-line no-unused-vars
       .render(data)
       .then(out => res({ html: out.getOutput() }));
@@ -23,7 +23,6 @@ async function route(template, data, onDone, onError) {
         }
     );
   };
-  return finalRoute;
 }
 
 let lassoConfigured = false;
